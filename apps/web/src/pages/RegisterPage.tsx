@@ -33,7 +33,7 @@ const RegisterPage = () => {
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setError("");
     setSuccess("");
@@ -55,7 +55,7 @@ const RegisterPage = () => {
       sx={{
         minHeight: "100vh",
         display: "flex",
-        bgcolor: "#858585",
+        bgcolor: "#508748",
         overflow: "hidden",
       }}
     >
@@ -87,7 +87,7 @@ const RegisterPage = () => {
                     width: 60,
                     height: 60,
                     borderRadius: "50%",
-                    bgcolor: "#d3d0d0",
+                    bgcolor: "#508748",
                     display: "inline-flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -183,7 +183,7 @@ const RegisterPage = () => {
                     py: 1.5,
                     fontSize: 16,
                     borderRadius: 3,
-                    bgcolor: "#d3d0d0",
+                    bgcolor: "#508748",
                     "&:hover": {
                       bgcolor: "rgb(116, 116, 119)",
                     },

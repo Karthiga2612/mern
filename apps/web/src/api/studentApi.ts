@@ -23,8 +23,28 @@ export const getAllStudents = async () => {
   return data;
 };
 
+export const getStudent = async (id: string) => {
+  const { data } = await api.get<Student>(`/${id}`);
+  return data;
+};
+
 /* Flip a student's isActive flag */
 export const toggleStudentStatus = async (id: string) => {
   const { data } = await api.patch(`/toggle/${id}`);
   return data;
+};
+
+export const createStudent = async (data:any) => {
+  const res = await axios.post("/create", data);
+  return res.data;
+};
+
+export const updateStudent = async (id:string, data:any) => {
+  const res = await axios.put(`/update/${id}`, data);
+  return res.data;
+};
+
+export const deleteStudent = async (id:string) => {
+  const res = await axios.delete(`/delete/${id}`);
+  return res.data;
 };

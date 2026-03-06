@@ -17,14 +17,12 @@ const Navbar = ({ onLogout }: Props) => {
   return (
     <AppBar
       position="sticky"
-      elevation={0}
       sx={{
-        bgcolor: "#676767",
+        bgcolor: "#508748",
         py: 0.5,
       }}
     >
       <Toolbar>
-        {/* Logo area */}
         <Box
           sx={{
             display: "flex",

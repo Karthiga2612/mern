@@ -57,7 +57,7 @@ const LoginPage = ({ onLogin }: Props) => {
       sx={{
         minHeight: "100vh",
         display: "flex",
-        bgcolor: "#858585",
+        bgcolor: "#508748",
         overflow: "hidden",
         position: "relative",
       }}
@@ -125,7 +125,6 @@ const LoginPage = ({ onLogin }: Props) => {
               maxWidth: 440,
               p: 2,
               boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
-              borderRadius: 4,
             }}
           >
             <CardContent sx={{ p: 3 }}>
@@ -136,7 +135,7 @@ const LoginPage = ({ onLogin }: Props) => {
                     width: 60,
                     height: 60,
                     borderRadius: "50%",
-                    bgcolor: "#d3d0d0",
+                    bgcolor: "#508748",
                     display: "inline-flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -220,7 +219,7 @@ const LoginPage = ({ onLogin }: Props) => {
                     py: 1.5,
                     fontSize: 16,
                     borderRadius: 3,
-                    bgcolor: "#d3d0d0",
+                    bgcolor: "#508748",
                     "&:hover": {
                       bgcolor: "rgb(116, 116, 119)",
                     },

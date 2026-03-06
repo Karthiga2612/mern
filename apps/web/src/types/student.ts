@@ -1,5 +1,6 @@
 export interface Student {
   _id: string;
+  password: String;
   email: string;
   isActive: boolean;
 }
