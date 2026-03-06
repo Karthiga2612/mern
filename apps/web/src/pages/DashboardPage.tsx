@@ -210,7 +210,7 @@ const DashboardPage = ({ onLogout }: Props) => {
           alignItems: "center",
           minHeight: "100vh",
           gap: 2,
-          background: "linear-gradient(135deg, #F5F7FF 0%, #E8E6FF 100%)",
+          background: "linear-gradient(135deg, #F0FFF4 0%, #DCFCE7 100%)",
         }}
       >
         <Refresh
@@ -232,7 +232,12 @@ const DashboardPage = ({ onLogout }: Props) => {
   }
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "#F5F7FF" }}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #F0FFF4 0%, #DCFCE7 100%)",
+      }}
+    >
       <Navbar onLogout={onLogout} />
 
       <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -243,7 +248,7 @@ const DashboardPage = ({ onLogout }: Props) => {
               mb: 4,
               borderRadius: 4,
               overflow: "hidden",
-              background: "linear-gradient(135deg, #6C63FF 0%, #FF6584 100%)",
+              background: "linear-gradient(135deg, #00C853 0%, #69F0AE 100%)",
               boxShadow: "0 8px 32px rgba(108,99,255,0.3)",
             }}
           >

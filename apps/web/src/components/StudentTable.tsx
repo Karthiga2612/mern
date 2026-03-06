@@ -84,7 +84,7 @@ const TableContent = forwardRef<HTMLDivElement, Props>(
           sx={{
             px: 3,
             py: 2.5,
-            background: "linear-gradient(135deg, #6C63FF 0%, #FF6584 100%)",
+            background: "linear-gradient(135deg, #00C853 0%, #69F0AE 100%)",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
