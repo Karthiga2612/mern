@@ -9,7 +9,6 @@ import {
   Fade,
   Stack,
   Chip,
-  LinearProgress,
   IconButton,
   Tooltip,
   Divider,
@@ -28,12 +27,14 @@ import {
   ArrowUpward,
   ArrowDownward,
   PersonAdd,
+  Circle,
 } from "@mui/icons-material";
 import Navbar from "../components/Navbar";
 import StudentTable from "../components/StudentTable";
 import AddStudentDialog from "../components/AddStudentDialog";
 import EditStudentDialog from "../components/EditStudentDialog";
 import DeleteConfirmDialog from "../components/DeleteDialog";
+import CourseSection from "../components/CourseSection";
 import {
   getAllStudents,
   toggleStudentStatus,
@@ -52,14 +53,12 @@ const DashboardPage = ({ onLogout }: Props) => {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
-  // Dialog states
   const [addOpen, setAddOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
-  // Snackbar for success messages
   const [snackbar, setSnackbar] = useState({ open: false, message: "" });
 
   const fetchStudents = async () => {
@@ -87,7 +86,6 @@ const DashboardPage = ({ onLogout }: Props) => {
     setSnackbar({ open: true, message });
   };
 
-  // Toggle active status
   const handleToggle = async (id: string) => {
     try {
       await toggleStudentStatus(id);
@@ -99,14 +97,12 @@ const DashboardPage = ({ onLogout }: Props) => {
     }
   };
 
-  // Add new student
   const handleAdd = async (email: string, password: string) => {
     const newStudent = await registerStudent(email, password);
     setStudents((prev) => [...prev, newStudent]);
     showSnackbar("Student added successfully!");
   };
 
-  // Edit student
   const handleEditClick = (student: Student) => {
     setSelectedStudent(student);
     setEditOpen(true);
@@ -124,7 +120,6 @@ const DashboardPage = ({ onLogout }: Props) => {
     showSnackbar("Student updated successfully!");
   };
 
-  // Delete student
   const handleDeleteClick = (student: Student) => {
     setSelectedStudent(student);
     setDeleteOpen(true);
@@ -132,7 +127,6 @@ const DashboardPage = ({ onLogout }: Props) => {
 
   const handleDeleteConfirm = async () => {
     if (!selectedStudent) return;
-
     setDeleteLoading(true);
     try {
       await deleteStudent(selectedStudent._id);
@@ -159,35 +153,50 @@ const DashboardPage = ({ onLogout }: Props) => {
     {
       title: "Total Students",
       value: total,
-      icon: <People sx={{ fontSize: 32 }} />,
+      icon: <People sx={{ fontSize: 28 }} />,
       gradient: "linear-gradient(135deg, #6C63FF 0%, #8B85FF 100%)",
-      lightBg: "#EEEDFF",
-      shadowColor: "rgba(108,99,255,0.3)",
+      bgGradient: "linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%)",
+      accentColor: "#6C63FF",
+      lightColor: "#EEEDFF",
+      shadowColor: "rgba(108,99,255,0.15)",
+      hoverShadow: "rgba(108,99,255,0.35)",
       percent: 100,
-      trend: "all",
-      trendIcon: <School sx={{ fontSize: 16 }} />,
+      trendLabel: "All registered",
+      trendIcon: <School sx={{ fontSize: 14 }} />,
+      trendColor: "#6C63FF",
+      trendBg: "#EEEDFF",
     },
     {
       title: "Active Students",
       value: active,
-      icon: <CheckCircle sx={{ fontSize: 32 }} />,
+      icon: <CheckCircle sx={{ fontSize: 28 }} />,
       gradient: "linear-gradient(135deg, #00C853 0%, #69F0AE 100%)",
-      lightBg: "#E6F9ED",
-      shadowColor: "rgba(0,200,83,0.3)",
+      bgGradient: "linear-gradient(135deg, #F0FFF4 0%, #DCFCE7 100%)",
+      accentColor: "#00C853",
+      lightColor: "#E6F9ED",
+      shadowColor: "rgba(0,200,83,0.15)",
+      hoverShadow: "rgba(0,200,83,0.35)",
       percent: activePercent,
-      trend: "up",
-      trendIcon: <ArrowUpward sx={{ fontSize: 16 }} />,
+      trendLabel: `${activePercent}% active`,
+      trendIcon: <ArrowUpward sx={{ fontSize: 14 }} />,
+      trendColor: "#00C853",
+      trendBg: "#E6F9ED",
     },
     {
       title: "Inactive Students",
       value: inactive,
-      icon: <Cancel sx={{ fontSize: 32 }} />,
+      icon: <Cancel sx={{ fontSize: 28 }} />,
       gradient: "linear-gradient(135deg, #FF5252 0%, #FF8A80 100%)",
-      lightBg: "#FFF0F0",
-      shadowColor: "rgba(255,82,82,0.3)",
+      bgGradient: "linear-gradient(135deg, #FFF5F5 0%, #FEE2E2 100%)",
+      accentColor: "#FF5252",
+      lightColor: "#FFF0F0",
+      shadowColor: "rgba(255,82,82,0.15)",
+      hoverShadow: "rgba(255,82,82,0.35)",
       percent: inactivePercent,
-      trend: "down",
-      trendIcon: <ArrowDownward sx={{ fontSize: 16 }} />,
+      trendLabel: `${inactivePercent}% inactive`,
+      trendIcon: <ArrowDownward sx={{ fontSize: 14 }} />,
+      trendColor: "#FF5252",
+      trendBg: "#FFF0F0",
     },
   ];
 
@@ -245,14 +254,8 @@ const DashboardPage = ({ onLogout }: Props) => {
                 alignItems={{ xs: "flex-start", sm: "center" }}
                 spacing={2}
               >
-                {/* Left: greeting */}
                 <Box>
-                  <Stack
-                    direction="row"
-                    alignItems="center"
-                    spacing={1}
-                    mb={1}
-                  >
+                  <Stack direction="row" alignItems="center" spacing={1} mb={1}>
                     <WavingHand
                       sx={{
                         fontSize: 28,
@@ -270,17 +273,12 @@ const DashboardPage = ({ onLogout }: Props) => {
                       Dashboard Overview
                     </Typography>
                   </Stack>
-                  <Typography
-                    variant="body1"
-                    sx={{ color: "rgba(255,255,255,0.85)" }}
-                  >
+                  <Typography sx={{ color: "rgba(255,255,255,0.85)" }}>
                     Monitor and manage all student accounts from one place
                   </Typography>
                 </Box>
 
-                {/* Right: actions */}
                 <Stack direction="row" spacing={2} alignItems="center">
-                  {/* Add student button */}
                   <Button
                     variant="contained"
                     startIcon={<PersonAdd />}
@@ -300,7 +298,7 @@ const DashboardPage = ({ onLogout }: Props) => {
                         boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
                         transform: "translateY(-2px)",
                       },
-                      transition: "all 0.3s ease",
+                      transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                     }}
                   >
                     Add Student
@@ -334,7 +332,7 @@ const DashboardPage = ({ onLogout }: Props) => {
                           bgcolor: "rgba(255,255,255,0.3)",
                           transform: "rotate(180deg)",
                         },
-                        transition: "all 0.5s ease",
+                        transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
                       }}
                     >
                       <Refresh
@@ -356,7 +354,7 @@ const DashboardPage = ({ onLogout }: Props) => {
           </Card>
         </Fade>
 
-        {/* Stats cards */}
+        {/* Stats cards - new glassmorphism style */}
         <Grid container spacing={3} sx={{ mb: 4 }}>
           {stats.map((card, index) => (
             <Grid item xs={12} sm={4} key={card.title}>
@@ -364,150 +362,232 @@ const DashboardPage = ({ onLogout }: Props) => {
                 <Card
                   sx={{
                     borderRadius: 4,
-                    overflow: "hidden",
-                    boxShadow: "0 4px 20px rgba(0,0,0,0.06)",
-                    transition: "all 0.35s ease",
+                    overflow: "visible",
+                    background: card.bgGradient,
+                    border: `1px solid ${card.lightColor}`,
+                    boxShadow: `0 4px 24px ${card.shadowColor}`,
                     cursor: "default",
+                    position: "relative",
+                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                     "&:hover": {
-                      transform: "translateY(-8px) scale(1.02)",
-                      boxShadow: `0 12px 35px ${card.shadowColor}`,
+                      transform: "translateY(-6px)",
+                      boxShadow: `0 16px 40px ${card.hoverShadow}`,
+                      border: `1px solid ${card.accentColor}40`,
                     },
                   }}
                 >
-                  <Box
-                    sx={{
-                      height: 5,
-                      background: card.gradient,
-                    }}
-                  />
-
                   <CardContent sx={{ p: 3 }}>
+                    {/* Top row */}
                     <Stack
                       direction="row"
                       justifyContent="space-between"
-                      alignItems="flex-start"
-                      mb={2}
+                      alignItems="center"
+                      mb={2.5}
                     >
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        fontWeight={600}
-                        sx={{ letterSpacing: 0.5 }}
-                      >
-                        {card.title}
-                      </Typography>
-
+                      {/* Icon pill */}
                       <Box
                         sx={{
-                          width: 52,
-                          height: 52,
-                          borderRadius: "16px",
-                          background: card.gradient,
                           display: "flex",
                           alignItems: "center",
-                          justifyContent: "center",
+                          gap: 1,
+                          background: card.gradient,
+                          borderRadius: "14px",
+                          px: 2,
+                          py: 1,
                           color: "white",
-                          boxShadow: `0 4px 14px ${card.shadowColor}`,
-                          transition: "transform 0.3s ease",
+                          boxShadow: `0 4px 12px ${card.shadowColor}`,
+                          transition:
+                            "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                           "&:hover": {
-                            transform: "rotate(10deg) scale(1.1)",
+                            transform: "scale(1.05)",
+                            boxShadow: `0 6px 20px ${card.hoverShadow}`,
                           },
                         }}
                       >
                         {card.icon}
+                        <Typography
+                          variant="body2"
+                          fontWeight={700}
+                          color="white"
+                        >
+                          {card.title}
+                        </Typography>
                       </Box>
-                    </Stack>
 
-                    <Typography
-                      variant="h3"
-                      fontWeight={800}
-                      sx={{ lineHeight: 1 }}
-                    >
-                      {card.value}
-                    </Typography>
-
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      spacing={1}
-                      mt={1}
-                      mb={2}
-                    >
+                      {/* Trend pill */}
                       <Chip
                         icon={card.trendIcon}
-                        label={`${card.percent}%`}
+                        label={card.trendLabel}
                         size="small"
                         sx={{
-                          fontWeight: 700,
-                          fontSize: 12,
-                          height: 26,
-                          bgcolor:
-                            card.trend === "up"
-                              ? "#E6F9ED"
-                              : card.trend === "down"
-                              ? "#FFF0F0"
-                              : "#EEEDFF",
-                          color:
-                            card.trend === "up"
-                              ? "#00C853"
-                              : card.trend === "down"
-                              ? "#FF5252"
-                              : "#6C63FF",
+                          height: 28,
+                          fontWeight: 600,
+                          fontSize: 11,
+                          bgcolor: "white",
+                          color: card.trendColor,
+                          border: `1px solid ${card.trendBg}`,
                           "& .MuiChip-icon": {
-                            color:
-                              card.trend === "up"
-                                ? "#00C853"
-                                : card.trend === "down"
-                                ? "#FF5252"
-                                : "#6C63FF",
+                            color: card.trendColor,
+                            ml: 0.5,
                           },
+                          boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
                         }}
                       />
-                      <Typography variant="caption" color="text.secondary">
-                        of total students
-                      </Typography>
                     </Stack>
 
-                    <Divider sx={{ mb: 2 }} />
-
-                    <Box>
-                      <Stack
-                        direction="row"
-                        justifyContent="space-between"
-                        mb={0.5}
+                    {/* Big number with ring */}
+                    <Stack
+                      direction="row"
+                      alignItems="flex-end"
+                      spacing={2}
+                      mb={2.5}
+                    >
+                      {/* Circular progress ring */}
+                      <Box
+                        sx={{
+                          position: "relative",
+                          width: 64,
+                          height: 64,
+                        }}
                       >
-                        <Typography
-                          variant="caption"
-                          color="text.secondary"
-                          fontWeight={500}
-                        >
-                          Progress
-                        </Typography>
-                        <Typography
-                          variant="caption"
-                          fontWeight={700}
+                        {/* Background ring */}
+                        <Box
                           sx={{
+                            position: "absolute",
+                            inset: 0,
+                            borderRadius: "50%",
+                            border: `4px solid ${card.lightColor}`,
+                          }}
+                        />
+                        {/* Progress ring */}
+                        <svg
+                          width="64"
+                          height="64"
+                          style={{
+                            position: "absolute",
+                            transform: "rotate(-90deg)",
+                          }}
+                        >
+                          <circle
+                            cx="32"
+                            cy="32"
+                            r="28"
+                            fill="none"
+                            stroke={card.accentColor}
+                            strokeWidth="4"
+                            strokeLinecap="round"
+                            strokeDasharray={`${(card.percent / 100) * 176} 176`}
+                            style={{
+                              transition:
+                                "stroke-dasharray 1s cubic-bezier(0.4, 0, 0.2, 1)",
+                            }}
+                          />
+                        </svg>
+                        {/* Center text */}
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            inset: 0,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Typography
+                            variant="caption"
+                            fontWeight={800}
+                            sx={{ color: card.accentColor, fontSize: 13 }}
+                          >
+                            {card.percent}%
+                          </Typography>
+                        </Box>
+                      </Box>
+
+                      {/* Value and label */}
+                      <Box>
+                        <Typography
+                          variant="h3"
+                          fontWeight={800}
+                          sx={{
+                            lineHeight: 1,
                             background: card.gradient,
                             WebkitBackgroundClip: "text",
                             WebkitTextFillColor: "transparent",
                           }}
                         >
-                          {card.percent}%
+                          {card.value}
                         </Typography>
+                        <Typography
+                          variant="caption"
+                          color="text.secondary"
+                          fontWeight={500}
+                          sx={{ mt: 0.5, display: "block" }}
+                        >
+                          students
+                        </Typography>
+                      </Box>
+                    </Stack>
+
+                    {/* Bottom bar */}
+                    <Box
+                      sx={{
+                        bgcolor: "white",
+                        borderRadius: 3,
+                        p: 1.5,
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                      }}
+                    >
+                      <Stack
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="space-between"
+                      >
+                        <Stack direction="row" alignItems="center" spacing={1}>
+                          <Circle
+                            sx={{
+                              fontSize: 8,
+                              color: card.accentColor,
+                              animation:
+                                card.percent > 0
+                                  ? "pulse 2s ease-in-out infinite"
+                                  : "none",
+                              "@keyframes pulse": {
+                                "0%, 100%": { opacity: 1 },
+                                "50%": { opacity: 0.4 },
+                              },
+                            }}
+                          />
+                          <Typography
+                            variant="caption"
+                            fontWeight={600}
+                            color="text.secondary"
+                          >
+                            {card.percent > 0 ? "Tracking" : "No data"}
+                          </Typography>
+                        </Stack>
+
+                        {/* Mini bar chart */}
+                        <Stack direction="row" spacing={0.3} alignItems="end">
+                          {[40, 65, 45, 80, 55, card.percent].map(
+                            (h, i) => (
+                              <Box
+                                key={i}
+                                sx={{
+                                  width: 4,
+                                  height: `${Math.max(h / 5, 3)}px`,
+                                  borderRadius: 1,
+                                  bgcolor:
+                                    i === 5
+                                      ? card.accentColor
+                                      : `${card.accentColor}30`,
+                                  transition:
+                                    "height 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+                                }}
+                              />
+                            )
+                          )}
+                        </Stack>
                       </Stack>
-                      <LinearProgress
-                        variant="determinate"
-                        value={card.percent}
-                        sx={{
-                          height: 8,
-                          borderRadius: 4,
-                          bgcolor: card.lightBg,
-                          "& .MuiLinearProgress-bar": {
-                            borderRadius: 4,
-                            background: card.gradient,
-                          },
-                        }}
-                      />
                     </Box>
                   </CardContent>
                 </Card>
@@ -523,6 +603,10 @@ const DashboardPage = ({ onLogout }: Props) => {
               mb: 4,
               borderRadius: 4,
               boxShadow: "0 4px 20px rgba(0,0,0,0.06)",
+              transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+              "&:hover": {
+                boxShadow: "0 8px 30px rgba(0,0,0,0.1)",
+              },
             }}
           >
             <CardContent sx={{ py: 2, px: 3 }}>
@@ -539,137 +623,80 @@ const DashboardPage = ({ onLogout }: Props) => {
                 justifyContent="space-around"
                 alignItems="center"
               >
-                <Stack
-                  direction="row"
-                  alignItems="center"
-                  spacing={1.5}
-                  sx={{ py: 1 }}
-                >
-                  <Box
+                {[
+                  {
+                    label: "Registered",
+                    value: total,
+                    icon: <School sx={{ color: "#6C63FF", fontSize: 22 }} />,
+                    bg: "#EEEDFF",
+                  },
+                  {
+                    label: "Active Now",
+                    value: active,
+                    icon: (
+                      <CheckCircle sx={{ color: "#00C853", fontSize: 22 }} />
+                    ),
+                    bg: "#E6F9ED",
+                  },
+                  {
+                    label: "Inactive",
+                    value: inactive,
+                    icon: <Cancel sx={{ color: "#FF5252", fontSize: 22 }} />,
+                    bg: "#FFF0F0",
+                  },
+                  {
+                    label: "Active Rate",
+                    value: `${activePercent}%`,
+                    icon: (
+                      <TrendingUp sx={{ color: "#FFA000", fontSize: 22 }} />
+                    ),
+                    bg: "#FFF8E1",
+                  },
+                ].map((item) => (
+                  <Stack
+                    key={item.label}
+                    direction="row"
+                    alignItems="center"
+                    spacing={1.5}
                     sx={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: "12px",
-                      bgcolor: "#EEEDFF",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      py: 1,
+                      px: 1.5,
+                      borderRadius: 2,
+                      transition:
+                        "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                      "&:hover": {
+                        bgcolor: item.bg,
+                        transform: "scale(1.05)",
+                      },
                     }}
                   >
-                    <School sx={{ color: "#6C63FF", fontSize: 22 }} />
-                  </Box>
-                  <Box>
-                    <Typography
-                      variant="caption"
-                      color="text.secondary"
-                      fontWeight={500}
+                    <Box
+                      sx={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: "12px",
+                        bgcolor: item.bg,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
                     >
-                      Registered
-                    </Typography>
-                    <Typography variant="h6" fontWeight={800} lineHeight={1}>
-                      {total}
-                    </Typography>
-                  </Box>
-                </Stack>
-
-                <Stack
-                  direction="row"
-                  alignItems="center"
-                  spacing={1.5}
-                  sx={{ py: 1 }}
-                >
-                  <Box
-                    sx={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: "12px",
-                      bgcolor: "#E6F9ED",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <CheckCircle sx={{ color: "#00C853", fontSize: 22 }} />
-                  </Box>
-                  <Box>
-                    <Typography
-                      variant="caption"
-                      color="text.secondary"
-                      fontWeight={500}
-                    >
-                      Active Now
-                    </Typography>
-                    <Typography variant="h6" fontWeight={800} lineHeight={1}>
-                      {active}
-                    </Typography>
-                  </Box>
-                </Stack>
-
-                <Stack
-                  direction="row"
-                  alignItems="center"
-                  spacing={1.5}
-                  sx={{ py: 1 }}
-                >
-                  <Box
-                    sx={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: "12px",
-                      bgcolor: "#FFF0F0",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Cancel sx={{ color: "#FF5252", fontSize: 22 }} />
-                  </Box>
-                  <Box>
-                    <Typography
-                      variant="caption"
-                      color="text.secondary"
-                      fontWeight={500}
-                    >
-                      Inactive
-                    </Typography>
-                    <Typography variant="h6" fontWeight={800} lineHeight={1}>
-                      {inactive}
-                    </Typography>
-                  </Box>
-                </Stack>
-
-                <Stack
-                  direction="row"
-                  alignItems="center"
-                  spacing={1.5}
-                  sx={{ py: 1 }}
-                >
-                  <Box
-                    sx={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: "12px",
-                      bgcolor: "#FFF8E1",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <TrendingUp sx={{ color: "#FFA000", fontSize: 22 }} />
-                  </Box>
-                  <Box>
-                    <Typography
-                      variant="caption"
-                      color="text.secondary"
-                      fontWeight={500}
-                    >
-                      Active Rate
-                    </Typography>
-                    <Typography variant="h6" fontWeight={800} lineHeight={1}>
-                      {activePercent}%
-                    </Typography>
-                  </Box>
-                </Stack>
+                      {item.icon}
+                    </Box>
+                    <Box>
+                      <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        fontWeight={500}
+                      >
+                        {item.label}
+                      </Typography>
+                      <Typography variant="h6" fontWeight={800} lineHeight={1}>
+                        {item.value}
+                      </Typography>
+                    </Box>
+                  </Stack>
+                ))}
               </Stack>
             </CardContent>
           </Card>
@@ -682,9 +709,12 @@ const DashboardPage = ({ onLogout }: Props) => {
           onEdit={handleEditClick}
           onDelete={handleDeleteClick}
         />
+
+        {/* Course section */}
+        <CourseSection />
       </Container>
 
-      {/* Dialogs */}
+      {/* Student dialogs */}
       <AddStudentDialog
         open={addOpen}
         onClose={() => setAddOpen(false)}
@@ -712,7 +742,7 @@ const DashboardPage = ({ onLogout }: Props) => {
         onConfirm={handleDeleteConfirm}
       />
 
-      {/* Success snackbar */}
+      {/* Snackbar */}
       <Snackbar
         open={snackbar.open}
         autoHideDuration={3000}

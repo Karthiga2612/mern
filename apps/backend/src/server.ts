@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv"
 import { connectDB } from "./configs/db";
 import studentRoute from "./routes/student.routes"
+import courseRoute from './routes/course.routes';
 
 const app = express();
 
@@ -11,7 +12,8 @@ app.use(cors());  //allows req from different domains
 dotenv.config();
 connectDB();
 
-app.use("/api/students", studentRoute)
+app.use("/api/students", studentRoute);
+app.use("/api/courses", courseRoute);
 
 app.get("/", (req, res) => {
   res.send("Backend Working Fine");
