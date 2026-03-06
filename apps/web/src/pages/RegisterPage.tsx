@@ -33,7 +33,7 @@ const RegisterPage = () => {
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setSuccess("");
@@ -108,7 +108,7 @@ const RegisterPage = () => {
                 <Fade in>
                   <Alert
                     severity="error"
-                    sx={{ mb: 2, borderRadius: 2 }}
+                    sx={{ mb: 2 }}
                     onClose={() => setError("")}
                   >
                     {error}
