@@ -400,7 +400,7 @@ const CourseSection = () => {
               borderRadius: 4,
               boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
               background:
-                "linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%)",
+                "linear-gradient(135deg, #F0FFF4 0%, #DCFCE7 100%)",
             }}
           >
             <Box
