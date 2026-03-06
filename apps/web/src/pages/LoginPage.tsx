@@ -57,7 +57,7 @@ const LoginPage = ({ onLogin }: Props) => {
       sx={{
         minHeight: "100vh",
         display: "flex",
-        background: "linear-gradient(135deg, #6C63FF 0%, #FF6584 100%)",
+        bgcolor: "#858585",
         overflow: "hidden",
         position: "relative",
       }}
@@ -136,8 +136,7 @@ const LoginPage = ({ onLogin }: Props) => {
                     width: 60,
                     height: 60,
                     borderRadius: "50%",
-                    background:
-                      "linear-gradient(135deg, #6C63FF 0%, #FF6584 100%)",
+                    bgcolor: "#d3d0d0",
                     display: "inline-flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -178,7 +177,7 @@ const LoginPage = ({ onLogin }: Props) => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Email sx={{ color: "#6C63FF" }} />
+                        <Email sx={{ color: "#d3d0d0" }} />
                       </InputAdornment>
                     ),
                   }}
@@ -195,7 +194,7 @@ const LoginPage = ({ onLogin }: Props) => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Lock sx={{ color: "#6C63FF" }} />
+                        <Lock sx={{ color: "#d3d0d0" }} />
                       </InputAdornment>
                     ),
                     endAdornment: (
@@ -221,16 +220,10 @@ const LoginPage = ({ onLogin }: Props) => {
                     py: 1.5,
                     fontSize: 16,
                     borderRadius: 3,
-                    background:
-                      "linear-gradient(135deg, #6C63FF 0%, #FF6584 100%)",
-                    boxShadow: "0 4px 15px rgba(108,99,255,0.4)",
+                    bgcolor: "#d3d0d0",
                     "&:hover": {
-                      background:
-                        "linear-gradient(135deg, #5A52DB 0%, #DB4564 100%)",
-                      boxShadow: "0 6px 20px rgba(108,99,255,0.5)",
-                      transform: "translateY(-1px)",
+                      bgcolor: "rgb(116, 116, 119)",
                     },
-                    transition: "all 0.3s ease",
                   }}
                 >
                   {loading ? "Signing in…" : "Sign In"}
@@ -242,7 +235,7 @@ const LoginPage = ({ onLogin }: Props) => {
                 <Link
                   to="/register"
                   style={{
-                    color: "#6C63FF",
+                    color: "#b3b3b3",
                     fontWeight: 700,
                     textDecoration: "none",
                   }}

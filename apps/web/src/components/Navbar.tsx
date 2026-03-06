@@ -1,5 +1,5 @@
-import { AppBar, Toolbar, Typography, Button, Box, Chip } from "@mui/material";
-import { Logout, School, Circle } from "@mui/icons-material";
+import { AppBar, Toolbar, Typography, Button, Box, } from "@mui/material";
+import { Logout, School, } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
@@ -19,7 +19,7 @@ const Navbar = ({ onLogout }: Props) => {
       position="sticky"
       elevation={0}
       sx={{
-        background: "linear-gradient(135deg, #6C63FF 0%, #FF6584 100%)",
+        bgcolor: "#676767",
         py: 0.5,
       }}
     >
@@ -50,18 +50,6 @@ const Navbar = ({ onLogout }: Props) => {
             <Typography variant="h6" fontWeight={700} lineHeight={1.2}>
               Student Dashboard
             </Typography>
-            <Chip
-              icon={<Circle sx={{ fontSize: "8px !important" }} />}
-              label="Online"
-              size="small"
-              sx={{
-                height: 20,
-                fontSize: 11,
-                bgcolor: "rgba(255,255,255,0.2)",
-                color: "white",
-                "& .MuiChip-icon": { color: "#69F0AE" },
-              }}
-            />
           </Box>
         </Box>
 

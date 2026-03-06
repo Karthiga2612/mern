@@ -15,7 +15,6 @@ import {
   Tooltip,
 } from "@mui/material";
 import {
-  Person,
   SchoolOutlined,
   ToggleOn,
   ToggleOff,
@@ -78,40 +77,32 @@ const StudentTable = ({ students, onToggle }: Props) => {
           sx={{
             px: 3,
             py: 2.5,
-            background: "linear-gradient(135deg, #6C63FF 0%, #FF6584 100%)",
+            bgcolor: "#9c9c9c",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
           }}
         >
           <Typography variant="h6" fontWeight={700} color="white">
-            📋 Student Directory
+            Student Directory
           </Typography>
-          <Chip
-            label={`${students.length} total`}
-            size="small"
-            sx={{
-              bgcolor: "rgba(255,255,255,0.2)",
-              color: "white",
-              fontWeight: 600,
-            }}
-          />
+          
         </Box>
 
         <TableContainer>
           <Table>
             <TableHead>
               <TableRow sx={{ bgcolor: "#F8F9FE" }}>
-                <TableCell sx={{ fontWeight: 700, color: "#6C63FF" }}>
-                  #
+                <TableCell sx={{ fontWeight: 700, color: "#646465" }}>
+                  S.No
                 </TableCell>
-                <TableCell sx={{ fontWeight: 700, color: "#6C63FF" }}>
+                <TableCell sx={{ fontWeight: 700, color: "#646465" }}>
                   Student
                 </TableCell>
-                <TableCell sx={{ fontWeight: 700, color: "#6C63FF" }}>
+                <TableCell sx={{ fontWeight: 700, color: "#646465" }}>
                   Status
                 </TableCell>
-                <TableCell sx={{ fontWeight: 700, color: "#6C63FF" }}>
+                <TableCell sx={{ fontWeight: 700, color: "#646465" }}>
                   Action
                 </TableCell>
               </TableRow>
@@ -139,7 +130,7 @@ const StudentTable = ({ students, onToggle }: Props) => {
                         alignItems: "center",
                         justifyContent: "center",
                         fontWeight: 700,
-                        color: "#6C63FF",
+                        color: "#757575",
                         fontSize: 13,
                       }}
                     >
@@ -161,7 +152,7 @@ const StudentTable = ({ students, onToggle }: Props) => {
                           width: 38,
                           height: 38,
                           background: student.isActive
-                            ? "linear-gradient(135deg, #6C63FF, #FF6584)"
+                            ? "#4ebd73"
                             : "#E0E0E0",
                           transition: "all 0.3s ease",
                           fontSize: 14,
@@ -218,11 +209,11 @@ const StudentTable = ({ students, onToggle }: Props) => {
                         onChange={() => onToggle(student._id)}
                         sx={{
                           "& .MuiSwitch-switchBase.Mui-checked": {
-                            color: "#6C63FF",
+                            color: "#0e8a5b",
                           },
                           "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track":
                             {
-                              bgcolor: "#6C63FF",
+                              bgcolor: "#56ac70",
                             },
                         }}
                       />
