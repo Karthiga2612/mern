@@ -23,7 +23,6 @@ import {
   TrendingUp,
   Refresh,
   School,
-  WavingHand,
   ArrowUpward,
   ArrowDownward,
   PersonAdd,
@@ -34,7 +33,7 @@ import StudentTable from "../components/StudentTable";
 import AddStudentDialog from "../components/AddStudentDialog";
 import EditStudentDialog from "../components/EditStudentDialog";
 import DeleteConfirmDialog from "../components/DeleteDialog";
-import CourseSection from "../components/CourseSection";
+// import CourseSection from "../components/CourseSection";
 import {
   getAllStudents,
   toggleStudentStatus,
@@ -256,19 +255,6 @@ const DashboardPage = ({ onLogout }: Props) => {
               >
                 <Box>
                   <Stack direction="row" alignItems="center" spacing={1} mb={1}>
-                    <WavingHand
-                      sx={{
-                        fontSize: 28,
-                        color: "#FFD54F",
-                        animation: "wave 1.5s ease-in-out infinite",
-                        "@keyframes wave": {
-                          "0%, 100%": { transform: "rotate(0deg)" },
-                          "25%": { transform: "rotate(20deg)" },
-                          "50%": { transform: "rotate(-10deg)" },
-                          "75%": { transform: "rotate(15deg)" },
-                        },
-                      }}
-                    />
                     <Typography variant="h4" fontWeight={800} color="white">
                       Dashboard Overview
                     </Typography>
@@ -711,7 +697,7 @@ const DashboardPage = ({ onLogout }: Props) => {
         />
 
         {/* Course section */}
-        <CourseSection />
+        {/* <CourseSection /> */}
       </Container>
 
       {/* Student dialogs */}
