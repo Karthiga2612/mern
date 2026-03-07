@@ -18,7 +18,7 @@ const Navbar = ({ onLogout }: Props) => {
     <AppBar
       position="sticky"
       sx={{
-        bgcolor: "#508748",
+        bgcolor: "#2ed97b",
         py: 0.5,
       }}
     >
